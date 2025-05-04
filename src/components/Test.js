@@ -7,7 +7,9 @@ function Test() {
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "https://gtlcdnstorage.blob.core.windows.net/guide/stylesheets/guide.css"; // Ensure correct path
+    link.href = "https://gtlcdnstorage.blob.core.windows.net/guide/stylesheets/guide.css";
+    // link.href = "https://gtlcdnstorage.blob.core.windows.net/guide/stylesheets/dtaa.css";
+    // link.href = "https://gtlcdnstorage.blob.core.windows.net/guide/stylesheets/decision.css";
     link.id = "external-css";
 
     if (!document.getElementById("external-css")) {
@@ -21,7 +23,7 @@ function Test() {
   }, []);
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [foundContent, setFoundContent] = useState('')
+  // const [foundContent, setFoundContent] = useState('')
 
 
   function handleSearchChange(e) {
