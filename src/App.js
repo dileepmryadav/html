@@ -1,13 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import Test from "./components/Test";
 import Modal from "./components/Modal";
+import GuideCard from "./components/GuideCard";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<Test />} /> */}
-        <Route path="/" element={<Modal />} />
+        <Route path="/mui" element={<Modal />} />
+
+        <Route path="/" element={<GuideCard />} />
       </Routes>
     </BrowserRouter>
   );
