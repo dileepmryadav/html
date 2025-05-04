@@ -61,8 +61,7 @@ const GuideCard = ({ article, searchQuery }) => {
     const isMobileScreen = useMediaQuery(theme.breakpoints.down('sm'))
     const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'))
 
-    const [open, setOpen] = React.useState(false);
-
+    const [modalIsOpen, setModalIsOpen] = useState(false)
     const [showBackToTop, setShowBackToTop] = useState(false)
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [snackbarMessage, setSnackbarMessage] = useState('') // Feedback submitted successfully 😄
@@ -70,11 +69,11 @@ const GuideCard = ({ article, searchQuery }) => {
 
     const modalContentRef = useRef(null)
 
-  
+    const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-        // Theme colors
+    // Theme colors
     const themeColors = {
         primary: '#232536',
         secondary: '#ffcf51',
@@ -103,7 +102,8 @@ const GuideCard = ({ article, searchQuery }) => {
     useEffect(() => {
         // Only run this if modal is open
         // if (!modalIsOpen) return
-
+        setOpen(true);
+        if (!open) return
         // Use requestAnimationFrame for smoother detection
         let scrollFrame
         const checkScroll = () => {
@@ -229,16 +229,6 @@ const GuideCard = ({ article, searchQuery }) => {
         return 'Guide'
     }
 
-
-
-    const handleOpenInNewTab = (article, path) => {
-        if (!article || !path) return;
-
-        const url = `${window.location.origin}${path}`;
-        window.open(url, '_blank', 'noopener,noreferrer');
-    };
-
-
     useEffect(() => {
         const link = document.createElement("link");
         link.rel = "stylesheet";
@@ -290,10 +280,7 @@ const GuideCard = ({ article, searchQuery }) => {
                 }}
                 id={`article-${article?.slug}`}
             >
-
-                {/* <Button onClick={handleOpen}>Open modal</Button> */}
                 <Box
-                onClick={handleOpen}
                     sx={{
                         display: 'flex',
                         flexDirection: 'row',
@@ -305,7 +292,7 @@ const GuideCard = ({ article, searchQuery }) => {
                     }}
                 >
                     <Box
-                    onClick={handleOpen}
+                        onClick={handleOpen}
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -316,14 +303,14 @@ const GuideCard = ({ article, searchQuery }) => {
                             height: '100%',
                         }}
                     >
-                        
+
                         <Tooltip
                             // title={showTitleTooltip ? article?.title : ''}
                             title={article?.title}
                             arrow
                             placement='bottom'
                         >
-                            
+
                             <Typography
                                 variant={isMobileScreen ? 'subtitle1' : 'h6'}
                                 onClick={handleOpen}
@@ -392,9 +379,9 @@ const GuideCard = ({ article, searchQuery }) => {
                     <Box sx={{ alignSelf: 'flex-start' }}>
                         <Tooltip title='Open in new tab' arrow>
                             <IconButton
-                                onClick={() =>
-                                    handleOpenInNewTab(article, `/guidances/${article?.slug}`)
-                                }
+                                // onClick={() =>
+                                //     handleOpenInNewTab(article, `/guidances/${article?.slug}`)
+                                // }
                                 size={isMobileScreen ? 'small' : 'medium'}
                                 sx={{
                                     color: themeColors.primary,
@@ -411,7 +398,11 @@ const GuideCard = ({ article, searchQuery }) => {
                         </Tooltip>
                     </Box>
                 </Box>
-                <Modal open={open}
+                <Modal
+
+                    // open={modalIsOpen}
+                    open={open}
+
                     onClose={handleClose}>
                     {/* Wrapper Box to maintain border radius when scrollbar appears */}
                     <Box
@@ -623,7 +614,7 @@ const GuideCard = ({ article, searchQuery }) => {
                                         </Fab>
                                     )}
                                 </Zoom>
-                                    {parseHtmlSanitizeAddTargetToLinks(html, "")}
+                                {parseHtmlSanitizeAddTargetToLinks(html, "")}
                             </Box>
                         </Box>
                     </Box>

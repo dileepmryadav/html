@@ -24,8 +24,8 @@ const style = {
 
 export default function BasicModal() {
     const [open, setOpen] = React.useState(false);
-    // const handleOpen = () => setOpen(true);
-    // const handleClose = () => setOpen(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
         const hash = window.location.hash;
@@ -51,8 +51,8 @@ export default function BasicModal() {
         }
       }, [open]);
       
-      const handleOpen = () => setOpen(true);
-      const handleClose = () => setOpen(false);
+    //   const handleOpen = () => setOpen(true);
+    //   const handleClose = () => setOpen(false);
 
     useEffect(() => {
         const link = document.createElement("link");
