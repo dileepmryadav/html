@@ -65,9 +65,9 @@ const HtmlContentWithSections = ({ content, searchQuery, forwardURL }) => {
 
         if (targetElement) {
           targetElement.scrollIntoView({ behavior: 'smooth' });
-          console.log(`Scrolled to section: ${targetId}`);
+          // console.log(`Scrolled to section: ${targetId}`);
         } else {
-          console.warn(`Target section not found: ${targetId}`);
+          // console.warn(`Target section not found: ${targetId}`);
         }
       }, 100); // slightly longer delay to ensure DOM is ready
     }
@@ -75,8 +75,8 @@ const HtmlContentWithSections = ({ content, searchQuery, forwardURL }) => {
 
   // Debugging log to verify highlighting is being applied
   useEffect(() => {
-    console.log('Search query for highlighting:', searchQuery);
-    console.log('Is content highlighted:', highlightedContent.includes('<mark>'));
+    // console.log('Search query for highlighting:', searchQuery);
+    // console.log('Is content highlighted:', highlightedContent.includes('<mark>'));
   }, [searchQuery, highlightedContent]);
 
   // Function to parse and sanitize HTML
@@ -93,7 +93,7 @@ const HtmlContentWithSections = ({ content, searchQuery, forwardURL }) => {
 
         // Handle title nodes
         if (domNode.name === 'title') {
-          console.log(domNode.data);
+          // console.log(domNode.data);
         }
 
         // Handle footnote reference links (forward links)
@@ -116,7 +116,7 @@ const HtmlContentWithSections = ({ content, searchQuery, forwardURL }) => {
                 if (targetElement) {
                   targetElement.scrollIntoView({ behavior: 'smooth' });
                 } else {
-                  console.warn(`Target not found: ${targetId}`);
+                  // console.warn(`Target not found: ${targetId}`);
                 }
               }}
             >
@@ -152,7 +152,7 @@ const HtmlContentWithSections = ({ content, searchQuery, forwardURL }) => {
                 if (targetElement) {
                   targetElement.scrollIntoView({ behavior: 'smooth' });
                 } else {
-                  console.warn(`Backlink target not found: ${targetId}`);
+                  // console.warn(`Backlink target not found: ${targetId}`);
                 }
               }}
             >
@@ -187,21 +187,21 @@ const HtmlContentWithSections = ({ content, searchQuery, forwardURL }) => {
                 const sectionId = domNode.attribs.href; // e.g., #bookmarkSection2.1
                 const isPreviewMode = window.location.pathname.includes('/search');
 
-                console.log('Link clicked in preview mode:', isPreviewMode);
+                // console.log('Link clicked in preview mode:', isPreviewMode);
 
                 if (isPreviewMode) {
                   try {
                     // Check if localStorage is accessible
                     if (typeof localStorage !== 'undefined') {
-                      console.log('localStorage before access:', Object.keys(localStorage));
+                      // console.log('localStorage before access:', Object.keys(localStorage));
 
                       // Get the URL from localStorage
                       const storageURL = localStorage.getItem('localURL') || '';
-                      console.log('Retrieved storageURL:', storageURL);
+                      // console.log('Retrieved storageURL:', storageURL);
 
                       if (storageURL) {
                         const fullGuideUrl = `${storageURL}${sectionId}`;
-                        console.log('Opening URL:', fullGuideUrl);
+                        // console.log('Opening URL:', fullGuideUrl);
 
                         // Open in a new tab
                         const newTab = window.open(fullGuideUrl, '_blank');
@@ -215,46 +215,46 @@ const HtmlContentWithSections = ({ content, searchQuery, forwardURL }) => {
 
                               // Only remove the specific item we used
                               localStorage.removeItem('localURL');
-                              console.log('localURL removed from localStorage');
+                              // console.log('localURL removed from localStorage');
 
                               // Verify removal
-                              console.log('After removal, localStorage has:', Object.keys(localStorage));
+                              // console.log('After removal, localStorage has:', Object.keys(localStorage));
                             } catch (clearErr) {
-                              console.error('Error removing from localStorage:', clearErr);
+                              // console.error('Error removing from localStorage:', clearErr);
                             }
                           }, 1000); // Longer timeout for production environment
                         }
                       } else {
-                        console.warn('localURL is missing in localStorage.');
+                        // console.warn('localURL is missing in localStorage.');
                       }
                     } else {
-                      console.error('localStorage is not available');
+                      // console.error('localStorage is not available');
                     }
                   } catch (err) {
-                    console.error('Error in preview mode handling:', err);
+                    // console.error('Error in preview mode handling:', err);
                   }
                 } else {
                   // Open the section link in a new tab
                   try {
                     const fullUrl = `${window.location.origin}${window.location.pathname}${sectionId}`;
-                    console.log('Opening regular URL:', fullUrl);
+                    // console.log('Opening regular URL:', fullUrl);
 
                     const newTab = window.open(fullUrl, '_blank');
 
                     if (!newTab || newTab.closed) {
                       // If the new tab didn't open, then scroll in the current tab
                       const targetId = sectionId.substring(1); // Remove #
-                      console.log('Attempting to scroll to:', targetId);
+                      // console.log('Attempting to scroll to:', targetId);
 
                       const targetElement = document.getElementById(targetId);
                       if (targetElement) {
                         targetElement.scrollIntoView({ behavior: 'smooth' });
                       } else {
-                        console.warn(`Target element not found: ${targetId}`);
+                        // console.warn(`Target element not found: ${targetId}`);
                       }
                     }
                   } catch (err) {
-                    console.error('Error in regular mode handling:', err);
+                    // console.error('Error in regular mode handling:', err);
                   }
                 }
               }}
@@ -345,8 +345,8 @@ export default HtmlContentWithSections;
 
 // Maintaining the original export pattern for the parse function
 export const parseHtmlSanitizeAddTargetToLinks = (content, searchQuery, forwardURL) => {
-  console.log("parseHtmlSanitizeAddTargetToLinks called with search query:", searchQuery);
-  console.log("The forward URL is:", forwardURL);
+  // console.log("parseHtmlSanitizeAddTargetToLinks called with search query:", searchQuery);
+  // console.log("The forward URL is:", forwardURL);
 
   const component = <HtmlContentWithSections content={content} searchQuery={searchQuery} forwardURL={forwardURL} />;
   return component;
